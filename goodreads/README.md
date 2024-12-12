@@ -37,7 +37,7 @@ The analysis conducted on the dataset from Goodreads unfolded a comprehensive ex
 ### Storylines and Insights
 - **Highly Rated Books Dominance**: The data suggests that the presence of numerous ratings does not necessarily equate to higher average ratings, hinting at phenomena such as "hype" or "bandwagon" effects in book ratings.
 - **Importance of Quality Indicators**: The analysis signifies a need for deeper exploration into factors influencing ratings since the `ratings_count` alone doesn't adequately predict `average_rating`.
-- **Potential for Future Features**: Incorporating qualitative data—such as reviews, author metrics, genre categorization, or publication details—could enhance model accuracy and provide greater insights into what truly drives book ratings on platforms like Goodreads.
+- **Potential for Future Features**: Incorporating qualitative dataâ€”such as reviews, author metrics, genre categorization, or publication detailsâ€”could enhance model accuracy and provide greater insights into what truly drives book ratings on platforms like Goodreads.
 
 In summary, while the analysis provided some quantitative insights into Goodreads' rating dynamics, it emphasizes the complexity of reader preferences and the multifaceted nature of book quality perception. Further analysis incorporating diverse features could yield more actionable insights and a better understanding of the book rating system.
 
@@ -45,19 +45,19 @@ In summary, while the analysis provided some quantitative insights into Goodread
 
 The following charts were generated as part of the analysis:
 
-![average_rating_boxplot](charts/average_rating_boxplot.png)
+![average_rating_boxplot](average_rating_boxplot.png)
 
 **Explanation:** This chart represents average rating boxplot.
 
-![average_rating_histogram](charts/average_rating_histogram.png)
+![average_rating_histogram](average_rating_histogram.png)
 
 **Explanation:** This chart represents average rating histogram.
 
-![correlation_matrix](charts/correlation_matrix.png)
+![correlation_matrix](correlation_matrix.png)
 
 **Explanation:** This chart represents correlation matrix.
 
-![regression_analysis](charts/regression_analysis.png)
+![regression_analysis](regression_analysis.png)
 
 **Explanation:** This chart represents regression analysis.
 
