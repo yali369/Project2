@@ -31,12 +31,12 @@ Based on the provided code and the executed operations on the dataset `media.csv
   - There are a large number of unique titles (2,312), showing a wide variety of content. However, the top title "Kanda Naal Mudhal" indicates at least some specific works are particularly well-known or referenced.
   
 ### Correlation Matrix:
-- A strong positive correlation exists between `overall` and `quality` (R² = 0.826), indicating that as quality ratings increase, overall ratings are also likely to increase. This suggests that improving quality could enhance how media is perceived overall.
-- There is also a moderate correlation with `repeatability` (R² = 0.513) which implies that better quality media could lead to returning viewers; however, the correlation is weaker than between overall and quality scores.
+- A strong positive correlation exists between `overall` and `quality` (RÂ² = 0.826), indicating that as quality ratings increase, overall ratings are also likely to increase. This suggests that improving quality could enhance how media is perceived overall.
+- There is also a moderate correlation with `repeatability` (RÂ² = 0.513) which implies that better quality media could lead to returning viewers; however, the correlation is weaker than between overall and quality scores.
 
 ### Regression Analysis:
 - The linear regression analysis consistently emphasizes the relationship between `quality` and `overall`. The regression coefficient shows that for each unit increase in quality, the overall rating could be expected to increase significantly, which reinforces previous findings.
-- R² score from the model confirms a strong predictive capability, supporting a strategic focus on improving media quality in order to boost overall audience satisfaction.
+- RÂ² score from the model confirms a strong predictive capability, supporting a strategic focus on improving media quality in order to boost overall audience satisfaction.
 
 ### Visualizations:
 - The histograms and boxplots visually underscore a concentration of ratings around the average, reinforcing the summary statistics.
@@ -53,19 +53,19 @@ In conclusion, the dataset provides valuable insights into how quality correlate
 
 The following charts were generated as part of the analysis:
 
-![boxplot](charts/boxplot.png)
+![boxplot](boxplot.png)
 
 **Explanation:** This chart represents boxplot.
 
-![correlation_heatmap](charts/correlation_heatmap.png)
+![correlation_heatmap](correlation_heatmap.png)
 
 **Explanation:** This chart represents correlation heatmap.
 
-![histograms](charts/histograms.png)
+![histograms](histograms.png)
 
 **Explanation:** This chart represents histograms.
 
-![regression_analysis](charts/regression_analysis.png)
+![regression_analysis](regression_analysis.png)
 
 **Explanation:** This chart represents regression analysis.
 
