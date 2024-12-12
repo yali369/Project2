@@ -36,10 +36,10 @@ The provided Python code processes a dataset containing happiness and socio-econ
    - The analysis reaffirms the widely accepted notion that higher economic prosperity, as indicated by GDP per capita, tends to correlate with increased happiness levels. This highlights the importance of economic policies that aim to boost GDP per capita as a route to improving citizen well-being.
 
 2. **Global Happiness Dynamics**:
-   - With a broad dataset covering multiple countries over several years, researchers and policymakers can observe trends in happiness beyond mere economic numbers. For instance, countries like Afghanistan, despite the challenges faced, show a gradual improvement in happiness scores over time—suggesting resilience among its citizens.
+   - With a broad dataset covering multiple countries over several years, researchers and policymakers can observe trends in happiness beyond mere economic numbers. For instance, countries like Afghanistan, despite the challenges faced, show a gradual improvement in happiness scores over timeâ€”suggesting resilience among its citizens.
 
 3. **Focus on Multidimensional Well-being**:
-   - While GDP is significant, it’s crucial to address gaps in other socio-economic indicators like social support, health, and freedom to make life choices for a more comprehensive strategy to enhance happiness. Some countries demonstrate great wealth but low satisfaction rates, prompting further investigation.
+   - While GDP is significant, itâ€™s crucial to address gaps in other socio-economic indicators like social support, health, and freedom to make life choices for a more comprehensive strategy to enhance happiness. Some countries demonstrate great wealth but low satisfaction rates, prompting further investigation.
 
 4. **Cultural and Societal Influences**:
    - Variations in happiness scores across different countries suggest that cultural, social, and political contexts play critical roles in shaping well-being. Policies tailored to local contexts can have a profound impact on enhancing citizens' quality of life.
@@ -53,19 +53,19 @@ In conclusion, the insights derived from the dataset and analyses emphasize the 
 
 The following charts were generated as part of the analysis:
 
-![Correlation_Matrix](charts/Correlation_Matrix.png)
+![Correlation_Matrix](Correlation_Matrix.png)
 
 **Explanation:** This chart represents Correlation Matrix.
 
-![Life_Ladder_Boxplot](charts/Life_Ladder_Boxplot.png)
+![Life_Ladder_Boxplot](Life_Ladder_Boxplot.png)
 
 **Explanation:** This chart represents Life Ladder Boxplot.
 
-![Life_Ladder_Histogram](charts/Life_Ladder_Histogram.png)
+![Life_Ladder_Histogram](Life_Ladder_Histogram.png)
 
 **Explanation:** This chart represents Life Ladder Histogram.
 
-![Regression_Plot](charts/Regression_Plot.png)
+![Regression_Plot](Regression_Plot.png)
 
 **Explanation:** This chart represents Regression Plot.
 
