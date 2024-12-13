@@ -2,7 +2,7 @@ import os
 import sys
 import pandas as pd
 #import seaborn as sns
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import requests
 import io
 import contextlib
