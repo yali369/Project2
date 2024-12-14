@@ -5,9 +5,7 @@
 #   "seaborn",
 #   "matplotlib",
 #   "requests",
-#   "openai",
-#   "contextlib",
-#   "io"
+#   "openai"
 # ]
 # ///
 
