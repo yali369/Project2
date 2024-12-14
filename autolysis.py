@@ -6,7 +6,8 @@
 #   "matplotlib",
 #   "requests",
 #   "openai",
-#  "contextlib"
+#   "contextlib",
+#   "io"
 # ]
 # ///
 
