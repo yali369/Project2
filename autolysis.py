@@ -101,7 +101,7 @@ def extract_and_execute_functions(llm_response, filename, model="gpt-4o-mini"):
         return None
 
 def analyze_and_visualize(csv_file):
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    script_dir = os.getcwd()  # Current working directory
     file_path = os.path.join(script_dir, csv_file)
 
     try:
@@ -158,7 +158,7 @@ import os
 def generate_readme(csv_file, llm_response):
     # Determine the current working directory (script's directory)
     script_dir = os.getcwd()  # Use current working directory
-    charts_dir = os.path.join(script_dir, "charts")  # Ensure folder name matches the actual folder
+    charts_dir = os.path.join(script_dir)  # Ensure folder name matches the actual folder
     readme_path = os.path.join(script_dir, "README.md")
 
     readme_content = f"""# Analysis of {csv_file}
@@ -181,7 +181,7 @@ The following charts were generated as part of the analysis:
         for chart in sorted(os.listdir(charts_dir)):
             if chart.endswith(".png"):
                 chart_name = os.path.splitext(chart)[0]
-                chart_path = os.path.join("charts", chart)  # Use correct folder name
+                chart_path = os.path.join("charts")  # Use correct folder name
                 readme_content += f"![{chart_name}]({chart_path})\n\n"
                 readme_content += f"**Explanation:** This chart represents {chart_name.replace('_', ' ')}.\n\n"
     else:
