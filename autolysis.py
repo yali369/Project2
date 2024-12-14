@@ -141,7 +141,7 @@ def analyze_and_visualize(csv_file):
     "- Generate a histogram and a box plot to visualize the distribution of key variables.\n"
     "- Compute the on numerical data compute correlation matrix, ensuring that only the int/float columns are used for correlation computation.\n"
     "- on numerical dataset Perform a regression analysis on important variables, and plot the regression line, showing the equation and R-squared value.\n"
-    "- save the chart (512x512 px images) with filename without any space in the new folder charts (create charts folder overwrite if present) of current directory same input path.\n"
+    "- save the chart (512x512 px images) with filename without any space in the Current working directory.\n"
     "Provide Python code snippets to perform the analysis and visualization tasks as needed."
     )
 
