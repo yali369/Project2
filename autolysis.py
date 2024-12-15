@@ -61,7 +61,7 @@ def chat_with_model(messages,TOKEN_ENV_VAR,model="gpt-4o-mini"):
         print("An error occurred:", e)
         return None
 
-def extract_and_execute_functions(llm_response,analysis_prompt, filename, model="gpt-4o-mini"):
+def extract_and_execute_functions(llm_response,filename, model="gpt-4o-mini"):
     try:
         code_blocks = []
         for block in llm_response.split("```"):
@@ -97,7 +97,7 @@ def extract_and_execute_functions(llm_response,analysis_prompt, filename, model=
         messages = [
             {"role": "system", "content": "You are an expert data scientist need to give storyline of the analysis."},
             {"role": "user", "content": summarization_prompt},
-            {"role": "user", "content": llm_response},
+            #{"role": "user", "content": llm_response},
         ]
 
         summary = chat_with_model(messages,TOKEN_ENV_VAR)
@@ -241,5 +241,5 @@ if __name__ == "__main__":
 
     csv_file = sys.argv[1]
     llm_response1,analysis_prompt = analyze_and_visualize(csv_file)
-    summary = extract_and_execute_functions(llm_response1,analysis_prompt, csv_file, model="gpt-4o-mini")
+    summary = extract_and_execute_functions(llm_response1,csv_file, model="gpt-4o-mini")
     generate_readme(csv_file, summary)
