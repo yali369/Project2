@@ -156,7 +156,7 @@ def analyze_and_visualize(csv_file):
     messages = [
         {"role": "system", "content": "You are an expert data scientist."},
         {"role": "user", "content": analysis_prompt},
-        {"role": "user", "content": "save the output of python code in current directory i.e. charts"},
+        {"role": "user", "content": "save the output of python code in current directory"},
     ]
 
     llm_response = chat_with_model(messages,TOKEN_ENV_VAR)
