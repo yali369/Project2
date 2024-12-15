@@ -145,6 +145,7 @@ def analyze_and_visualize(csv_file):
     chart_column = chat_with_model(messages,TOKEN_ENV_VAR)
     
     chart_column=ast.literal_eval(chart_column)
+    print(script_dir)
     
      # Save a histogram for each numeric column in the current working directory
     for column in chart_column:
