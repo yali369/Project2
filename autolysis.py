@@ -40,7 +40,7 @@ headers = {
 
 url = "http://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
 
-def chat_with_model(messages, model="gpt-4o-mini"):
+def chat_with_model(messages,headers,model="gpt-4o-mini"):
     data = {
         "model": model,
         "messages": messages
@@ -57,7 +57,7 @@ def chat_with_model(messages, model="gpt-4o-mini"):
         print("An error occurred:", e)
         return None
 
-def extract_and_execute_functions(llm_response, filename, model="gpt-4o-mini"):
+def extract_and_execute_functions(llm_response,analysis_prompt, filename, model="gpt-4o-mini"):
     try:
         code_blocks = []
         for block in llm_response.split("```"):
@@ -86,15 +86,17 @@ def extract_and_execute_functions(llm_response, filename, model="gpt-4o-mini"):
             "The following Python functions were executed with the provided filename input. "
             "Summarize the results and provide insights, storylines based on the output:\n\n"
             f"Code:\n{code_to_execute}\n\n"
+            f"In the summariz don't keep the python code\n"
             f"Results:\n{results}"
         )
 
         messages = [
             {"role": "system", "content": "You are an expert data scientist."},
-            {"role": "user", "content": summarization_prompt}
+            {"role": "user", "content": summarization_prompt},
+            {"role": "user", "content": llm_response}
         ]
 
-        summary = chat_with_model(messages)
+        summary = chat_with_model(messages,headers)
         return summary
     except Exception as e:
         print(f"Error processing the LLM response or executing the code: {e}")
@@ -135,12 +137,14 @@ def analyze_and_visualize(csv_file):
     "- First, try to load the file using UTF-8 encoding.\n"
     "- If a `UnicodeDecodeError` occurs (meaning UTF-8 encoding failed), fall back to using `ISO-8859-1` (latin1) encoding to successfully load the file.\n"
     "\n"
+    f"- save charts in current directory\n"
     "Ensure the following analyses are conducted on the dataset:\n"
     "Divide dataset as numerical and categorical:\n"
     "- Perform basic statistical analysis on categorical and numerical separtely (mean, median, mode, standard deviation, etc.) on the dataset.\n"
-    "- Generate a histogram and a box plot to visualize the distribution of key variables.\n"
+    "- Generate a histogram, lineplot and a box plot to visualize the distribution of key variables.\n"
     "- Compute the on numerical data compute correlation matrix, ensuring that only the int/float columns are used for correlation computation.\n"
     "- on numerical dataset Perform a regression analysis on important variables, and plot the regression line, showing the equation and R-squared value.\n"
+    "-do additional analysis of outlier identificaiton, "
     "- save the chart (512x512 px images) with filename without any space in the Current working directory.\n"
     "Provide Python code snippets to perform the analysis and visualization tasks as needed."
     )
@@ -150,8 +154,8 @@ def analyze_and_visualize(csv_file):
         {"role": "user", "content": analysis_prompt},
     ]
 
-    llm_response = chat_with_model(messages)
-    return llm_response
+    llm_response = chat_with_model(messages,headers)
+    return llm_response,analysis_prompt
 
 import os
 
@@ -199,6 +203,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     csv_file = sys.argv[1]
-    llm_response1 = analyze_and_visualize(csv_file)
-    summary = extract_and_execute_functions(llm_response1, csv_file, model="gpt-4o-mini")
+    llm_response1,analysis_prompt = analyze_and_visualize(csv_file)
+    summary = extract_and_execute_functions(llm_response1,analysis_prompt, csv_file, model="gpt-4o-mini")
     generate_readme(csv_file, summary)
