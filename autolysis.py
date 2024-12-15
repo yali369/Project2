@@ -125,6 +125,29 @@ def analyze_and_visualize(csv_file):
     numeric_stats = df.select_dtypes(include=['number']).describe().to_dict()
     categorical_stats = df.select_dtypes(include=['object', 'category']).describe().to_dict()
     basic_stats = {**numeric_stats, **categorical_stats}
+    
+    numeric_df = df.select_dtypes(include=['number'])
+    categorical_df = df.select_dtypes(include=['object', 'category'])
+    
+    # Save a histogram for each numeric column in the current working directory
+    for column in numeric_df.columns:
+       plt.figure()
+       sns.histplot(numeric_df[column], kde=True)
+       plt.title(f"Histogram of {column}")
+       plt.savefig(os.path.join(script_dir, f"{column}_histogram.png"))
+       plt.close()
+
+   # Save a correlation heatmap
+    if not numeric_df.empty:
+       plt.figure(figsize=(10, 8))
+       corr_matrix = numeric_df.corr()
+       sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+       plt.title("Correlation Heatmap")
+       plt.savefig(os.path.join(script_dir, "correlation_heatmap.png"))
+       plt.close()
+    
+    
+    
 
     analysis_prompt = (
     "You are a data analyst. Based on the following dataset details, suggest insights and analyses:\n"
@@ -165,16 +188,14 @@ def analyze_and_visualize(csv_file):
 import os
 
 def generate_readme(csv_file, llm_response):
-    # Determine the current working directory (script's directory)
-    script_dir = os.getcwd()  # Use current working directory
-    charts_dir = os.path.join(script_dir)  # Ensure folder name matches the actual folder
+    script_dir = os.getcwd()  # Current working directory
     readme_path = os.path.join(script_dir, "README.md")
 
     readme_content = f"""# Analysis of {csv_file}
 
 ## Overview
 
-This analysis was conducted using an automated LLM pipeline. The dataset provided insights into various features, trends, and relationships among variables.
+This analysis was conducted using an automated pipeline. Below are the key insights and visualizations.
 
 ## Key Findings
 
@@ -182,19 +203,13 @@ This analysis was conducted using an automated LLM pipeline. The dataset provide
 
 ## Visualizations
 
-The following charts were generated as part of the analysis:
+The following charts were generated and saved in the current directory:
 
 """
 
-    if os.path.exists(charts_dir):  # Ensure the directory exists
-        for chart in sorted(os.listdir(charts_dir)):
-            if chart.endswith(".png"):
-                chart_name = os.path.splitext(chart)[0]
-                #chart_path = os.path.join("charts")  # Use correct folder name
-                readme_content += f"![{chart_name}]\n\n"
-                readme_content += f"**Explanation:** This chart represents {chart_name.replace('_', ' ')}.\n\n"
-    else:
-        print(f"Warning: The charts directory '{charts_dir}' does not exist.")
+    for chart in sorted(os.listdir(script_dir)):
+        if chart.endswith(".png"):
+            readme_content += f"- ![{chart}]({chart})\n"
 
     with open(readme_path, "w") as readme_file:
         readme_file.write(readme_content)
