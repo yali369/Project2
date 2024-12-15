@@ -84,7 +84,7 @@ def extract_and_execute_functions(llm_response,analysis_prompt, filename, model=
 
         summarization_prompt = (
             "The following Python functions were executed with the provided filename input. "
-            "Summarize the results and provide insights, storylines based on the output:\n\n"
+            "Summarize the results, include table of content and provide insights, storylines based on the output:\n\n"
             f"Code:\n{code_to_execute}\n\n"
             f"In the summariz don't keep the python code\n"
             f"Results:\n{results}"
