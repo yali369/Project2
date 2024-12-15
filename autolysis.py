@@ -5,7 +5,8 @@
 #   "seaborn",
 #   "matplotlib",
 #   "requests",
-#   "openai"
+#   "openai",
+#   "ast"
 # ]
 # ///
 
@@ -19,6 +20,7 @@ import requests
 import io
 import contextlib
 import openai
+import ast
  
 # Set global variables
 TOKEN_ENV_VAR = "AIPROXY_TOKEN"
@@ -131,6 +133,8 @@ def analyze_and_visualize(csv_file):
     
     chart_prompt = (
     "You are a data analyst. Based on the following dataset details, identify three key columns only and return as list only:\n"
+    "The response must strictly be a valid Python list. For example: ['column1', 'column2', 'column3']\n\n"
+    "Ensure the response is only the list, without any additional text, explanations, or formatting. "
     f"- Dataset: {numeric_df}\n"
     )
     
@@ -140,6 +144,7 @@ def analyze_and_visualize(csv_file):
     ]
     chart_column = chat_with_model(messages,TOKEN_ENV_VAR)
     
+    chart_column=ast.literal_eval(chart_column)
     
      # Save a histogram for each numeric column in the current working directory
     for column in chart_column:
