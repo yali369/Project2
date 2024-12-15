@@ -190,8 +190,8 @@ The following charts were generated as part of the analysis:
         for chart in sorted(os.listdir(charts_dir)):
             if chart.endswith(".png"):
                 chart_name = os.path.splitext(chart)[0]
-                chart_path = os.path.join("charts")  # Use correct folder name
-                readme_content += f"![{chart_name}]({chart_path})\n\n"
+                #chart_path = os.path.join("charts")  # Use correct folder name
+                readme_content += f"![{chart_name}]\n\n"
                 readme_content += f"**Explanation:** This chart represents {chart_name.replace('_', ' ')}.\n\n"
     else:
         print(f"Warning: The charts directory '{charts_dir}' does not exist.")
