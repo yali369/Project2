@@ -145,7 +145,22 @@ def perform_data_analysis(csv_file):
     chart_column = query_llm_for_response(messages,TOKEN_ENV_VAR)
     
     chart_column=ast.literal_eval(chart_column)
-    print(script_dir)
+    
+    
+    regression_prompt = (
+    "You are a data analyst. using dataset identify regression features and target columns only and return as list only:\n"
+    "The response must strictly be a valid Python list with target column as first entry in list. For example: ['Target', 'features1', 'freatures2']\n\n"
+    "Ensure the response is only the list, without any additional text, explanations, or formatting. "
+    f"- Dataset: {numeric_df}\n"
+    )
+    
+    messages = [
+        {"role": "system", "content": "You are an expert data scientist."},
+        {"role": "user", "content": regression_prompt}
+    ]
+    regression_column = query_llm_for_response(messages,TOKEN_ENV_VAR)
+    
+    regression_column=ast.literal_eval(regression_column)
     
      # Save a histogram for each numeric column in the current working directory
     for column in chart_column:
