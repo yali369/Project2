@@ -31,7 +31,7 @@ if TOKEN_ENV_VAR not in os.environ:
 
 
 
-def chat_with_model(messages,TOKEN_ENV_VAR,model="gpt-4o-mini"):
+def query_llm_for_response(messages,TOKEN_ENV_VAR,model="gpt-4o-mini"):
     try:
       
         openai.api_key = os.environ[TOKEN_ENV_VAR]
@@ -61,7 +61,7 @@ def chat_with_model(messages,TOKEN_ENV_VAR,model="gpt-4o-mini"):
         print("An error occurred:", e)
         return None
 
-def extract_and_execute_functions(llm_response,filename, model="gpt-4o-mini"):
+def process_and_run_llm_code(llm_response,filename, model="gpt-4o-mini"):
     try:
         code_blocks = []
         for block in llm_response.split("```"):
@@ -91,7 +91,8 @@ def extract_and_execute_functions(llm_response,filename, model="gpt-4o-mini"):
             "Summarize the results, include table of content, input data details and provide insights, storylines based on the output:\n\n"
             f"Code:\n{code_to_execute}\n\n"
             f"In the summariz don't keep the python code\n"
-            f"Results:\n{results}"
+            f"Results:\n{results}\n\n"
+            f"list limiation and future analysis\n"
         )
 
         messages = [
@@ -100,13 +101,13 @@ def extract_and_execute_functions(llm_response,filename, model="gpt-4o-mini"):
             #{"role": "user", "content": llm_response},
         ]
 
-        summary = chat_with_model(messages,TOKEN_ENV_VAR)
+        summary = query_llm_for_response(messages,TOKEN_ENV_VAR)
         return summary
     except Exception as e:
         print(f"Error processing the LLM response or executing the code: {e}")
         return None
 
-def analyze_and_visualize(csv_file):
+def perform_data_analysis(csv_file):
     script_dir = os.getcwd()  # Current working directory
     file_path = os.path.join(script_dir, csv_file)
 
@@ -141,7 +142,7 @@ def analyze_and_visualize(csv_file):
         {"role": "system", "content": "You are an expert data scientist."},
         {"role": "user", "content": chart_prompt}
     ]
-    chart_column = chat_with_model(messages,TOKEN_ENV_VAR)
+    chart_column = query_llm_for_response(messages,TOKEN_ENV_VAR)
     
     chart_column=ast.literal_eval(chart_column)
     print(script_dir)
@@ -182,6 +183,7 @@ def analyze_and_visualize(csv_file):
     "- If a `UnicodeDecodeError` occurs (meaning UTF-8 encoding failed), fall back to using `ISO-8859-1` (latin1) encoding to successfully load the file.\n"
     "\n"
     f"- save charts in current working directory folder  under folder as input csv file name i.e.'*.csv'(use os.getcwd())\n"
+    "appropriate labels for the axes on the plots:\n"
     "Ensure the following analyses are conducted on the dataset:\n"
     "Divide dataset as numerical and categorical:\n"
     "- Perform basic statistical analysis on categorical and numerical separtely (mean, median, mode, standard deviation, etc.) on the dataset.\n"
@@ -199,12 +201,12 @@ def analyze_and_visualize(csv_file):
         {"role": "user", "content": "save the output of python code in current directory"},
     ]
 
-    llm_response = chat_with_model(messages,TOKEN_ENV_VAR)
+    llm_response = query_llm_for_response(messages,TOKEN_ENV_VAR)
     return llm_response,analysis_prompt
 
 import os
 
-def generate_readme(csv_file, llm_response):
+def create_analysis_summary(csv_file, llm_response):
     script_dir = os.getcwd()  # Current working directory
     readme_path = os.path.join(script_dir, "README.md")
 
@@ -240,6 +242,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     csv_file = sys.argv[1]
-    llm_response1,analysis_prompt = analyze_and_visualize(csv_file)
-    summary = extract_and_execute_functions(llm_response1,csv_file, model="gpt-4o-mini")
-    generate_readme(csv_file, summary)
+    llm_response1,analysis_prompt = perform_data_analysis(csv_file)
+    summary = process_and_run_llm_code(llm_response1,csv_file, model="gpt-4o-mini")
+    create_analysis_summary(csv_file, summary)
