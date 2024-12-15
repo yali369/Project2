@@ -5,8 +5,7 @@
 #   "seaborn",
 #   "matplotlib",
 #   "requests",
-#   "openai",
-#   "ast"
+#   "openai"
 # ]
 # ///
 
