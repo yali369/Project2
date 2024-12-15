@@ -84,16 +84,16 @@ def extract_and_execute_functions(llm_response,analysis_prompt, filename, model=
 
         summarization_prompt = (
             "The following Python functions were executed with the provided filename input. "
-            "Summarize the results, include table of content and provide insights, storylines based on the output:\n\n"
+            "Summarize the results, include table of content, input data details and provide insights, storylines based on the output:\n\n"
             f"Code:\n{code_to_execute}\n\n"
             f"In the summariz don't keep the python code\n"
             f"Results:\n{results}"
         )
 
         messages = [
-            {"role": "system", "content": "You are an expert data scientist."},
+            {"role": "system", "content": "You are an expert data scientist need to give storyline of the analysis."},
             {"role": "user", "content": summarization_prompt},
-            {"role": "user", "content": llm_response}
+            {"role": "user", "content": llm_response},
         ]
 
         summary = chat_with_model(messages,headers)
@@ -152,6 +152,7 @@ def analyze_and_visualize(csv_file):
     messages = [
         {"role": "system", "content": "You are an expert data scientist."},
         {"role": "user", "content": analysis_prompt},
+        {"role": "user", "content": "save the output of python code in current directory i.e. charts"},
     ]
 
     llm_response = chat_with_model(messages,headers)
