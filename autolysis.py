@@ -129,22 +129,25 @@ def analyze_and_visualize(csv_file):
     numeric_df = df.select_dtypes(include=['number'])
     categorical_df = df.select_dtypes(include=['object', 'category'])
     
-    # Save a histogram for each numeric column in the current working directory
-    for column in numeric_df.columns:
-       plt.figure()
-       sns.histplot(numeric_df[column], kde=True)
-       plt.title(f"Histogram of {column}")
-       plt.savefig(os.path.join(script_dir, f"{column}_histogram.png"))
-       plt.close()
+    
+    
+    
+   #  # Save a histogram for each numeric column in the current working directory
+   #  for column in numeric_df.columns:
+   #     plt.figure()
+   #     sns.histplot(numeric_df[column], kde=True)
+   #     plt.title(f"Histogram of {column}")
+   #     plt.savefig(os.path.join(script_dir, f"{column}_histogram.png"))
+   #     plt.close()
 
-   # Save a correlation heatmap
-    if not numeric_df.empty:
-       plt.figure(figsize=(10, 8))
-       corr_matrix = numeric_df.corr()
-       sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
-       plt.title("Correlation Heatmap")
-       plt.savefig(os.path.join(script_dir, "correlation_heatmap.png"))
-       plt.close()
+   # # Save a correlation heatmap
+   #  if not numeric_df.empty:
+   #     plt.figure(figsize=(10, 8))
+   #     corr_matrix = numeric_df.corr()
+   #     sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt=".2f")
+   #     plt.title("Correlation Heatmap")
+   #     plt.savefig(os.path.join(script_dir, "correlation_heatmap.png"))
+   #     plt.close()
     
     
     
