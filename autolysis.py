@@ -18,7 +18,8 @@ import matplotlib.pyplot as plt
 import requests
 import io
 import contextlib
-
+import openai
+ 
 # Set global variables
 TOKEN_ENV_VAR = "AIPROXY_TOKEN"
 
@@ -26,21 +27,23 @@ if TOKEN_ENV_VAR not in os.environ:
     print(f"Error: Please set the {TOKEN_ENV_VAR} environment variable.")
     sys.exit(1)
 
-try:
-    import openai
-    openai.api_key = os.environ[TOKEN_ENV_VAR]
-except ModuleNotFoundError:
-    print("Error: The 'openai' module is not installed. Please install it by running 'pip install openai'.")
-    sys.exit(1)
 
-# Define the headers, including authorization
-headers = {
-    "Authorization": f"Bearer {openai.api_key}"
-}
 
-url = "http://aiproxy.sanand.workers.dev/openai/v1/chat/completions"
 
-def chat_with_model(messages,headers,model="gpt-4o-mini"):
+def chat_with_model(messages,TOKEN_ENV_VAR,model="gpt-4o-mini"):
+    try:
+      
+        openai.api_key = os.environ[TOKEN_ENV_VAR]
+    except ModuleNotFoundError:
+        print("Error: The 'openai' module is not installed. Please install it by running 'pip install openai'.")
+        sys.exit(1)
+    # Define the headers, including authorization
+    headers = {
+        "Authorization": f"Bearer {openai.api_key}"
+    }
+
+    url = "http://aiproxy.sanand.workers.dev/openai/v1/chat/completions" 
+
     data = {
         "model": model,
         "messages": messages
@@ -96,7 +99,7 @@ def extract_and_execute_functions(llm_response,analysis_prompt, filename, model=
             {"role": "user", "content": llm_response},
         ]
 
-        summary = chat_with_model(messages,headers)
+        summary = chat_with_model(messages,TOKEN_ENV_VAR)
         return summary
     except Exception as e:
         print(f"Error processing the LLM response or executing the code: {e}")
@@ -137,7 +140,7 @@ def analyze_and_visualize(csv_file):
     "- First, try to load the file using UTF-8 encoding.\n"
     "- If a `UnicodeDecodeError` occurs (meaning UTF-8 encoding failed), fall back to using `ISO-8859-1` (latin1) encoding to successfully load the file.\n"
     "\n"
-    f"- save charts in current directory\n"
+    f"- save charts in a folder (os.getcwd()  # Use current working directory)\n"
     "Ensure the following analyses are conducted on the dataset:\n"
     "Divide dataset as numerical and categorical:\n"
     "- Perform basic statistical analysis on categorical and numerical separtely (mean, median, mode, standard deviation, etc.) on the dataset.\n"
@@ -155,7 +158,7 @@ def analyze_and_visualize(csv_file):
         {"role": "user", "content": "save the output of python code in current directory i.e. charts"},
     ]
 
-    llm_response = chat_with_model(messages,headers)
+    llm_response = chat_with_model(messages,TOKEN_ENV_VAR)
     return llm_response,analysis_prompt
 
 import os
