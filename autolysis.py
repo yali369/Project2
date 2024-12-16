@@ -6,7 +6,7 @@
 #   "matplotlib",
 #   "requests",
 #   "openai",
-#   "sklearn"
+#   "scikit-learn"
 # ]
 # ///
 
